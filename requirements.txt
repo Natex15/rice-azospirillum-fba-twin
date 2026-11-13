@@ -1,0 +1,8 @@
+# Python dependencies for Rice-Azospirillum Two-Compartment FBA Simulation
+numpy>=1.24.0
+scipy>=1.9.0
+pandas>=1.5.0
+plotly>=5.15.0
+streamlit>=1.25.0
+cobra>=0.26.0
+pytest>=7.0.0
