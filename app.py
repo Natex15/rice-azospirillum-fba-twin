@@ -873,11 +873,16 @@ def render_tab_2(model: Any, external_nh4: float, genotype: str):
             plot_bgcolor="#111827",
             xaxis=dict(title="Solar Irradiance (% of 100 mmol photon/gDW/h)"),
             yaxis=dict(
-                title="Rice Biomass Rate (h⁻¹)", titlefont=dict(color="#22c55e")
+                title=dict(
+                    text="Rice Biomass Rate (h⁻¹)",
+                    font=dict(color="#22c55e"),
+                )
             ),
             yaxis2=dict(
-                title="Nitrogenase (mmol/gDW/h)",
-                titlefont=dict(color="#38bdf8"),
+                title=dict(
+                    text="Nitrogenase (mmol/gDW/h)",
+                    font=dict(color="#38bdf8"),
+                ),
                 overlaying="y",
                 side="right",
             ),
@@ -1039,11 +1044,16 @@ def render_tab_3(
             plot_bgcolor="#111827",
             xaxis=dict(title="Enforced SWEET11 Export (mmol/gDW/h)"),
             yaxis=dict(
-                title="Rice Biomass Rate (h⁻¹)", titlefont=dict(color="#22c55e")
+                title=dict(
+                    text="Rice Biomass Rate (h⁻¹)",
+                    font=dict(color="#22c55e"),
+                )
             ),
             yaxis2=dict(
-                title="Nitrogenase (mmol/gDW/h)",
-                titlefont=dict(color="#38bdf8"),
+                title=dict(
+                    text="Nitrogenase (mmol/gDW/h)",
+                    font=dict(color="#38bdf8"),
+                ),
                 overlaying="y",
                 side="right",
             ),

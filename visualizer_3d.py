@@ -175,27 +175,38 @@ def render_threejs_rhizosphere(
     }}
     #canvas-container {{ position: absolute; top: 0; left: 0; width: 100%; height: {height}px; }}
     #hud {{
-      position: absolute; top: 14px; left: 14px; z-index: 10; max-width: 440px;
-      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 14px 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); pointer-events: auto;
+      position: absolute; top: 10px; left: 10px; z-index: 10; width: 270px; max-width: calc(100% - 20px);
+      background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 10px; padding: 8px 11px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45); pointer-events: auto;
+      transition: width 0.2s ease, opacity 0.2s ease;
     }}
-    .hud-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px; }}
-    .hud-title {{ font-size: 13px; font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 6px; }}
-    .hud-badge {{ font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 9999px; letter-spacing: 0.5px; text-transform: uppercase; }}
+    #hud.hud-minimized {{ width: auto; max-width: calc(100% - 20px); padding: 6px 10px; }}
+    #hud.hud-minimized #hud-body {{ display: none; }}
+    #hud.hud-minimized .hud-header {{ margin-bottom: 0; border-bottom: none; padding-bottom: 0; }}
+    #hud.pos-top-left {{ top: 10px; left: 10px; bottom: auto; right: auto; }}
+    #hud.pos-bottom-left {{ bottom: 10px; left: 10px; top: auto; right: auto; }}
+    #hud.pos-top-right {{ top: 10px; right: 10px; bottom: auto; left: auto; }}
+    #hud.pos-bottom-right {{ bottom: 10px; right: 10px; top: auto; left: auto; }}
+    .hud-header {{ display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 7px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 6px; }}
+    .hud-title {{ font-size: 11.5px; font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 4px; white-space: nowrap; cursor: pointer; }}
+    .hud-header-actions {{ display: flex; align-items: center; gap: 4px; }}
+    .hud-badge {{ font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 9999px; letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap; }}
+    .hud-icon-btn {{ background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); color: #cbd5e1; border-radius: 5px; padding: 2px 6px; font-size: 10px; font-weight: 600; cursor: pointer; line-height: 1.2; transition: all 0.15s ease; }}
+    .hud-icon-btn:hover {{ background: rgba(51, 65, 85, 1); color: #ffffff; border-color: #38bdf8; }}
     .badge-mutualist {{ background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; }}
     .badge-starved {{ background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; color: #fbbf24; }}
     .badge-parasitic {{ background: rgba(239, 68, 68, 0.25); border: 1px solid #ef4444; color: #fca5a5; }}
-    .hud-telemetry {{ display: grid; grid-template-columns: 1fr; gap: 6px; font-size: 12px; margin-bottom: 12px; }}
+    .hud-telemetry {{ display: grid; grid-template-columns: 1fr; gap: 4px; font-size: 11px; margin-bottom: 8px; }}
     .telemetry-row {{ display: flex; justify-content: space-between; align-items: center; color: #94a3b8; }}
-    .telemetry-value {{ font-family: monospace; font-weight: 600; color: #f8fafc; }}
-    .hud-controls {{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }}
-    .hud-btn {{ background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 6px; padding: 5px 9px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; }}
+    .telemetry-value {{ font-family: monospace; font-weight: 600; color: #f8fafc; font-size: 10.5px; }}
+    .hud-controls {{ display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }}
+    .hud-btn {{ background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; border-radius: 5px; padding: 3px 7px; font-size: 10px; font-weight: 500; cursor: pointer; transition: all 0.15s ease; }}
     .hud-btn:hover {{ background: rgba(51, 65, 85, 0.95); border-color: rgba(255, 255, 255, 0.3); color: #ffffff; }}
     .hud-btn-active {{ background: rgba(14, 165, 233, 0.3); border-color: #0ea5e9; color: #38bdf8; }}
-    .hud-legend {{ display: flex; flex-wrap: wrap; gap: 10px; font-size: 10px; color: #94a3b8; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 8px; }}
-    .legend-item {{ display: flex; align-items: center; gap: 5px; }}
-    .dot {{ width: 7px; height: 7px; border-radius: 50%; display: inline-block; }}
+    .hud-legend {{ display: flex; flex-wrap: wrap; gap: 7px; font-size: 9.5px; color: #94a3b8; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 6px; }}
+    .legend-item {{ display: flex; align-items: center; gap: 4px; }}
+    .dot {{ width: 6px; height: 6px; border-radius: 50%; display: inline-block; }}
     .dot-gold {{ background: #fde047; box-shadow: 0 0 6px #fde047; }}
     .dot-cyan {{ background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }}
     .dot-emerald {{ background: #10b981; box-shadow: 0 0 6px #10b981; }}
@@ -208,27 +219,33 @@ def render_threejs_rhizosphere(
   <div id="canvas-container"></div>
   <div id="hud">
     <div class="hud-header">
-      <span class="hud-title">🌿 3D Rhizosphere Digital Twin</span>
+      <span class="hud-title" onclick="toggleHud()" title="Click to minimize or expand">🌿 3D Twin</span>
       <span class="hud-badge {badge_class}">{badge_text}</span>
+      <div class="hud-header-actions">
+        <button class="hud-icon-btn" id="btn-hud-pos" onclick="cycleHudPos()" title="Move panel to another corner">📌</button>
+        <button class="hud-icon-btn" id="btn-hud-toggle" onclick="toggleHud()" title="Minimize / Expand panel">➖</button>
+      </div>
     </div>
-    <div class="hud-telemetry">
-      <div class="telemetry-row"><span>☀️ Solar Irradiance:</span><span class="telemetry-value">{light_pct:.1f}% ({light_flux_val:.1f} mmol/gDW/h)</span></div>
-      <div class="telemetry-row"><span>🍯 OsSWEET11 Sucrose Flux:</span><span class="telemetry-value">{sweet11_flux:.2f} mmol/gDW/h</span></div>
-      <div class="telemetry-row"><span>⚡ Fixed Ammonium (NH₄⁺):</span><span class="telemetry-value">{nh4_flux:.2f} mmol/gDW/h</span></div>
-    </div>
-    <div class="hud-controls">
-      <button class="hud-btn" onclick="setView('overview')">🔄 Overview</button>
-      <button class="hud-btn" onclick="setView('canopy')">🌿 Canopy</button>
-      <button class="hud-btn" onclick="setView('roots')">🌱 Roots</button>
-      <button class="hud-btn hud-btn-active" id="btn-cutaway" onclick="toggleCutaway()">✂️ Cutaway: ON</button>
-      <button class="hud-btn" onclick="resetView()">⏪ Reset</button>
-    </div>
-    <div class="hud-legend">
-      <div class="legend-item"><span class="dot dot-gold"></span> Photons</div>
-      <div class="legend-item"><span class="dot dot-cyan"></span> Sucrose</div>
-      <div class="legend-item"><span class="dot dot-emerald"></span> Fixed NH₄⁺</div>
-      <div class="legend-item"><span class="dot dot-root"></span> Roots</div>
-      <div class="legend-item"><span class="dot dot-bact"></span> A. brasilense</div>
+    <div id="hud-body">
+      <div class="hud-telemetry">
+        <div class="telemetry-row"><span>☀️ Irradiance:</span><span class="telemetry-value">{light_pct:.1f}% ({light_flux_val:.1f} mmol)</span></div>
+        <div class="telemetry-row"><span>🍯 SWEET11 Flux:</span><span class="telemetry-value">{sweet11_flux:.2f} mmol/gDW/h</span></div>
+        <div class="telemetry-row"><span>⚡ Fixed NH₄⁺:</span><span class="telemetry-value">{nh4_flux:.2f} mmol/gDW/h</span></div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn" onclick="setView('overview')">🔄 Overview</button>
+        <button class="hud-btn" onclick="setView('canopy')">🌿 Canopy</button>
+        <button class="hud-btn" onclick="setView('roots')">🌱 Roots</button>
+        <button class="hud-btn hud-btn-active" id="btn-cutaway" onclick="toggleCutaway()">✂️ Cutaway: ON</button>
+        <button class="hud-btn" onclick="resetView()">⏪ Reset</button>
+      </div>
+      <div class="hud-legend">
+        <div class="legend-item"><span class="dot dot-gold"></span> Photons</div>
+        <div class="legend-item"><span class="dot dot-cyan"></span> Sucrose</div>
+        <div class="legend-item"><span class="dot dot-emerald"></span> Fixed NH₄⁺</div>
+        <div class="legend-item"><span class="dot dot-root"></span> Roots</div>
+        <div class="legend-item"><span class="dot dot-bact"></span> A. brasilense</div>
+      </div>
     </div>
   </div>
   <div id="fallback-msg">WebGL rendering is not supported or failed to initialize in this environment.</div>
@@ -244,7 +261,7 @@ def render_threejs_rhizosphere(
       const width = container.clientWidth || window.innerWidth;
       const h = {height};
       const camera = new THREE.PerspectiveCamera(45, width / h, 0.1, 1000);
-      camera.position.set(14, 4, 18);
+      camera.position.set(16, 3, 22);
 
       const renderer = new THREE.WebGLRenderer({{ antialias: true, alpha: true, powerPreference: 'high-performance' }});
       renderer.setSize(width, h);
@@ -258,7 +275,7 @@ def render_threejs_rhizosphere(
       controls.dampingFactor = 0.05;
       controls.minDistance = 4;
       controls.maxDistance = 45;
-      controls.target.set(0, -2, 0);
+      controls.target.set(0, -0.8, 0);
       controls.update();
 
       const ambLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -537,12 +554,37 @@ def render_threejs_rhizosphere(
       let targetLookAt = null;
 
       window.setView = function(v) {{
-        if (v === 'overview') {{ targetCamPos = new THREE.Vector3(14, 4, 18); targetLookAt = new THREE.Vector3(0, -2, 0); }}
+        if (v === 'overview') {{ targetCamPos = new THREE.Vector3(16, 3, 22); targetLookAt = new THREE.Vector3(0, -0.8, 0); }}
         else if (v === 'canopy') {{ targetCamPos = new THREE.Vector3(0, 10, 14); targetLookAt = new THREE.Vector3(0, 4, 0); }}
         else if (v === 'roots') {{ targetCamPos = new THREE.Vector3(8, -5, 10); targetLookAt = new THREE.Vector3(0, -5, 0); }}
       }};
 
       window.resetView = function() {{ setView('overview'); }};
+
+      let isHudMinimized = false;
+      window.toggleHud = function() {{
+        isHudMinimized = !isHudMinimized;
+        const hudEl = document.getElementById('hud');
+        const btnEl = document.getElementById('btn-hud-toggle');
+        if (hudEl) {{
+          if (isHudMinimized) hudEl.classList.add('hud-minimized');
+          else hudEl.classList.remove('hud-minimized');
+        }}
+        if (btnEl) {{
+          btnEl.innerText = isHudMinimized ? '➕' : '➖';
+        }}
+      }};
+
+      const hudPositions = ['pos-top-left', 'pos-bottom-left', 'pos-bottom-right', 'pos-top-right'];
+      let currentPosIdx = 0;
+      window.cycleHudPos = function() {{
+        const hudEl = document.getElementById('hud');
+        if (hudEl) {{
+          hudPositions.forEach(p => hudEl.classList.remove(p));
+          currentPosIdx = (currentPosIdx + 1) % hudPositions.length;
+          hudEl.classList.add(hudPositions[currentPosIdx]);
+        }}
+      }};
 
       window.toggleCutaway = function() {{
         isCutaway = !isCutaway;
